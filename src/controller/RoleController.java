@@ -1,27 +1,26 @@
 package controller;
 
 import dao.RoleDAO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import model.Role;
 
+import java.util.List;
+
 public class RoleController {
+    private final RoleDAO dao = new RoleDAO();
 
-    private RoleDAO dao = new RoleDAO();
-
-    public ObservableList<Role> charger() {
-        return FXCollections.observableArrayList(dao.getAllRoles());
+    public List<Role> getAllRoles() {
+        return dao.findAll();
     }
 
-    public void ajouter(Role r) {
-        dao.ajouter(r);
+    public void addRole(Role role) {
+        dao.insert(role);
     }
 
-    public void modifier(Role r) {
-        dao.modifier(r);
+    public void updateRole(Role role) {
+        dao.update(role);
     }
 
-    public void supprimer(int id) {
-        dao.supprimer(id);
+    public void deleteRole(int idRole) {
+        dao.delete(idRole);
     }
 }
