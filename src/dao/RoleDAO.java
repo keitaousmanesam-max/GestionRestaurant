@@ -9,72 +9,53 @@ import java.util.List;
 
 public class RoleDAO {
 
-    // READ
-    public List<Role> getAllRoles() {
+    public List<Role> findAll() {
         List<Role> roles = new ArrayList<>();
-        String sql = "SELECT * FROM role";
-
-        try (Connection c = DBConnection.getConnection();
-             Statement st = c.createStatement();
+        String sql = "SELECT * FROM role"; // table 'role' en BDD
+        try (Statement st = DBConnection.getConnection().createStatement();
              ResultSet rs = st.executeQuery(sql)) {
-
             while (rs.next()) {
                 roles.add(new Role(
                         rs.getInt("id_role"),
                         rs.getString("nom_role"),
-                        rs.getString("description")
+                        rs.getString("description") // si tu as une colonne description
                 ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return roles;
     }
 
-    // CREATE
-    public void ajouter(Role role) {
-        String sql = "INSERT INTO role (nom_role, description) VALUES (?, ?)";
-
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
+    public void insert(Role role) {
+        String sql = "INSERT INTO role(nom_role, description) VALUES(?, ?)";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setString(1, role.getNomRole());
             ps.setString(2, role.getDescription());
             ps.executeUpdate();
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // UPDATE
-    public void modifier(Role role) {
+    public void update(Role role) {
         String sql = "UPDATE role SET nom_role=?, description=? WHERE id_role=?";
-
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setString(1, role.getNomRole());
             ps.setString(2, role.getDescription());
             ps.setInt(3, role.getIdRole());
             ps.executeUpdate();
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // DELETE
-    public void supprimer(int idRole) {
+    public void delete(int idRole) {
         String sql = "DELETE FROM role WHERE id_role=?";
-
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, idRole);
             ps.executeUpdate();
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
