@@ -10,7 +10,7 @@ public class TestDBConnection {
 
         String url = "jdbc:mysql://localhost:3306/gestion_restaurant?useSSL=false&serverTimezone=UTC";
         String user = "root";
-        String password = "Sam219592";
+        String password = "RTD-TAMBA";
 
         try {
             Connection conn = DriverManager.getConnection(url, user, password);

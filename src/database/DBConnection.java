@@ -9,7 +9,7 @@ public class DBConnection {
     private static final String URL =
             "jdbc:mysql://127.0.0.1:3306/gestion_restaurant?serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASSWORD = "Sam219592";
+    private static final String PASSWORD = "RTD-TAMBA";
 
     public static Connection getConnection() {
         try {
